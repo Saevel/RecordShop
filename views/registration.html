@@ -1,0 +1,96 @@
+<div>
+    <div class="container">
+        <h2>Registration</h2>
+        <br/><br/>
+
+        <form ng-submit="onSubmit()">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="login">Login</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input name="login" type="text" ng-model="login" />
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input name="pasword" type="password" ng-model="password" />
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input name="name" type="text" ng-model="personalData.name" />
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="surname">Surname</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input name="surname" type="text" ng-model="personalData.surname" />
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="phoneNumber">Phone Number</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="tel" ng-model="contactData.phoneNumber" />
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="email" ng-model="contactData.email" />
+                    </div>
+                </div>
+
+                <br/>
+                
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="address">Address</label>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="contactData.address" />
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="submit" value="Submit" />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

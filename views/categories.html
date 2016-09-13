@@ -1,0 +1,15 @@
+<div class="container">
+
+    <h2>Categories</h2>
+
+    <br/><br/>
+
+    <div class="list-group" >
+        <a ng-repeat="category in categories" href="/RecordShop/index.html#/categories/{{category.name}}"
+           class="list-group-item">
+            <!--Name + Image -->
+            {{category.name}}
+        </a>
+    </div>
+
+</div>

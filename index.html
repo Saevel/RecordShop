@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Record Shop</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="scripts/index.js"></script>
+</head>
+<body ng-app="MainModule">
+
+<div class="container">
+    <h1>Record Shop</h1>
+</div>
+
+<ul class="nav nav-tabs" >
+    <li><a href="#main">Main</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#registration">Registration</a></li>
+    <li><a href="#basket">Basket</a></li>
+    <li><a href="#rules">Rules</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+</ul>
+
+<div ng-view></div>
+
+<div class="navbar nabar-static-bottom">
+    Created by Kamil Owczarek
+</div>
+
+</body>
+</html>
