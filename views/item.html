@@ -1,2 +1,64 @@
-<!-- TODO: Implement -->
-<div>BASKET</div>
+<div class="container">
+    <h1>{{item.name}}</h1>
+
+    <br/><br/>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{item.img}}" />
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-md-3">
+            Description
+        </div>
+        <div class="col-md-3">
+            {{item.description}}
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-md-3">
+            Available items
+        </div>
+        <div class="col-md-3">
+            {{item.count}}
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-md-3">
+            Price
+        </div>
+        <div class="col-md-3">
+            {{item.price}}
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+        <div class="col-md-3">
+            Categories
+        </div>
+        <div class="col-md-3">
+            <span ng-repeat="category in item.categories">
+                {{category}}
+            </span>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <button ng-click="addToCart()" class="btn btn-warning">Add to Cart</button>
+    </div>
+
+</div>

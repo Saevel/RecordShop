@@ -9,13 +9,19 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <label for="login">Login</label>
+                        <label for="username">Username</label>
                     </div>
                     <div class="col-md-3">
-                        <input name="login" type="text" ng-model="login" />
+                        <input name="username" type="text" ng-model="username" />
                     </div>
                 </div>
 
+                <div class="row" ng-if="errors['username'] != null">
+                    <div class="text-danger">
+                        {{errors['username']}}
+                    </div>
+                </div>
+                <br ng-if="errors['username'] == null"/>
                 <br/>
                 
                 <div class="row">
@@ -23,12 +29,18 @@
                         <label for="password">Password</label>
                     </div>
                     <div class="col-md-3">
-                        <input name="pasword" type="password" ng-model="password" />
+                        <input name="password" type="password" ng-model="password" />
                     </div>
                 </div>
 
+                <div class="row" ng-if="errors['password'] != null">
+                    <div class="text-danger">
+                        {{errors['password']}}
+                    </div>
+                </div>
+                <br ng-if="errors['password'] == null"/>
                 <br/>
-                
+
                 <div class="row">
                     <div class="col-md-3">
                         <label for="name">Name</label>
@@ -38,8 +50,14 @@
                     </div>
                 </div>
 
+                <div class="row" ng-if="errors['name'] != null">
+                    <div class="text-danger">
+                        {{errors['name']}}
+                    </div>
+                </div>
+                <br ng-if="errors['name'] == null"/>
                 <br/>
-                
+
                 <div class="row">
                     <div class="col-md-3">
                         <label for="surname">Surname</label>
@@ -49,8 +67,14 @@
                     </div>
                 </div>
 
+                <div class="row" ng-if="errors['surname'] != null">
+                    <div class="text-danger">
+                        {{errors['surname']}}
+                    </div>
+                </div>
+                <br ng-if="errors['surname'] == null" />
                 <br/>
-                
+
                 <div class="row">
                     <div class="col-md-3">
                         <label for="phoneNumber">Phone Number</label>
@@ -60,7 +84,7 @@
                     </div>
                 </div>
 
-                <br/>
+                <br/><br/>
                 
                 <div class="row">
                     <div class="col-md-3">
@@ -71,18 +95,24 @@
                     </div>
                 </div>
 
-                <br/>
+                <br/><br/>
                 
                 <div class="row">
                     <div class="col-md-3">
                         <label for="address">Address</label>
                     </div>
                     <div class="col-md-3">
-                        <input type="text" ng-model="contactData.address" />
+                        <input name="address" type="text" ng-model="contactData.address" />
                     </div>
                 </div>
 
-                <br/>
+                <div class="row" ng-if="errors['contact'] != null && errors['contact'] != []">
+                    <div ng-repeat="error in errors['contact']" class="text-danger">
+                        {{error}}
+                    </div>
+                </div>
+                <br ng-if="errors['contact'] == null || errors['contact'] == []" />
+                <br/><br/>
 
                 <div class="row">
                     <div class="col-md-3">

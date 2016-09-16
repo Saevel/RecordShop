@@ -1,0 +1,45 @@
+<!-- TODO: Implement -->
+<div class="container">
+    <h2>Cart</h2>
+
+    <br/><br/>
+
+    <ul class="list-group">
+        <li ng-repeat="item in items" class="list-group-item">
+            <!--Name + Image -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{item.img}}" />
+                    </div>
+                    <div class="col-md-3">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>Name:</td>
+                                <td>{{item.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td>{{item.description}}</td>
+                            </tr>
+                            <tr>
+                                <td>Count:</td>
+                                <td>{{item.count}}</td>
+                            </tr>
+                            <tr>
+                                <td>Price:</td>
+                                <td>{{item.price}}$</td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <button class="btn btn-danger" ng-click="removeFromCart(item)">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <br/><br/>
+
+    <span class="label label-info">Total Price: {{totalPrice()}}</span>
+</div>

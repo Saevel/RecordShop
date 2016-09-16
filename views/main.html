@@ -4,42 +4,18 @@
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#carousel" ng-repeat="item in items" class="{{activeState($index)}}" data-slide-to="{{$index}}"></li>
-            <!--
-            <li data-target="#carousel" data-slide-to="1"></li>
-            <li data-target="#carousel" data-slide-to="2"></li>
-            -->
         </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div ng-repeat="item in items" class="item {{activeState($index)}}">
                 <a href="/RecordShop/index.html#/items/{{item.id}}">
-                    <img src="{{item.src}}" alt="{{item.name}}">
+                    <img src="{{item.img}}" alt="{{item.name}}">
                     <div class="carousel-caption">
                         <h3>{{item.name}}</h3>
                     </div>
                 </a>
             </div>
-            <!--
-            <div class="item active">
-                <img src="sample/storm.jpg" alt="...">
-                <div class="carousel-caption">
-                    <h3>Caption Text</h3>
-                </div>
-            </div>
-            <div class="item">
-                <img src="sample/volcano.jpg" alt="...">
-                <div class="carousel-caption">
-                    <h3>Caption Text</h3>
-                </div>
-            </div>
-            <div class="item">
-                <img src="sample/waterfalls.jpg" alt="...">
-                <div class="carousel-caption">
-                    <h3>Caption Text</h3>
-                </div>
-            </div>
-            -->
         </div>
 
         <!-- Controls -->

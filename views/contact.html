@@ -3,7 +3,7 @@
         <h2>Contact Us</h2>
         <div class="row">
             <div class="col-md-12 text-justify">
-                <h4>{{name}}</h4>
+                <h4>{{contactData.name}}</h4>
             </div>
         </div>
         <div class="row">
@@ -11,7 +11,7 @@
                 <h6>Phone Number:</h6>
             </div>
             <div class="col-md-6">
-                <h6>{{phoneNumber}}</h6>
+                <h6><a href="tel:{{contactData.phoneNumber}}">{{contactData.phoneNumber}}</a></h6>
             </div>
         </div>
         <div class="row">
@@ -19,7 +19,7 @@
                 <h6>Address:</h6>
             </div>
             <div class="col-md-6">
-                <h6>{{address}}</h6>
+                <h6>{{contactData.address}}</h6>
             </div>
         </div>
         <div class="row">
@@ -27,7 +27,7 @@
                 <h6>Email:</h6>
             </div>
             <div class="col-md-6">
-                <h6><a href="mailto:{{email}}">{{email}}</a></h6>
+                <h6><a href="mailto:{{email}}">{{contactData.email}}</a></h6>
             </div>
         </div>
     </div>
