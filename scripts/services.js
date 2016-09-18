@@ -118,18 +118,40 @@ function CartService($http) {
         sessionStorage.setItem("cart", JSON.stringify(cart));
     };
 
+    service.addItem = function(data, onSuccess, onError){
+        var cart = service.getCart();
+        cart.push(JSON.parse(data));
+        service.setCart(cart);
+        onSuccess();
+    };
+
     service.lockItems = function(id, count, onSuccess, onError) {
         $http
             .post("/items/lock", {'id': id, 'count': count})
             .success(function(data){
-                var cart = service.getCart();
-                cart.push(JSON.parse(data));
-                service.setCart(cart);
-
-                onSuccess();
-                return;
+                service.addItem(data, onSuccess, onError);
             })
             .error(onError);
+    };
+
+    service.removeItem = function(id, count, onSuccess, onError){
+        var cart = service.getCart();
+        var cartItem = new Object();
+        for(var j = 0; j < cart.length; j++) {
+            cartItem = cart[j];
+            if(cartItem.id == id && cartItem.count == count) {
+                if(cart.length == 1) {
+                    cart = [];
+                }
+                else {
+                    cart.splice(j,1);
+                }
+                service.setCart(cart);
+                onSuccess();
+                return;
+            }
+        }
+        onError();
     };
 
     service.unlockItems = function(id, count, onSuccess, onError) {
@@ -137,20 +159,16 @@ function CartService($http) {
         $http
             .delete("/items/lock", {'id': id, 'count': count})
             .success(function(){
-                var cart = service.getCart();
-                var cartItem = new Object();
-                for(var j = 0; j < cart.length; j++) {
-                    cartItem = cart[j];
+                service.removeItem(id, count, onSuccess, onError);
+            })
+            .error(onError);
+    };
 
-                    if(cartItem.id == id && cartItem.count == count) {
-                        if(cart.length == 1) {cart = [];}
-                        else {cart.splice(j,1);}
-                        service.setCart(cart);
-
-                        onSuccess();
-                        return;
-                    }
-                }
+    service.buyItem = function(id, count, onSuccess, onError){
+        $http
+            .post("/items/buy", {'id': id, 'count': count})
+            .success(function(){
+                service.removeItem(id, count, onSuccess, onError);
             })
             .error(onError);
     };

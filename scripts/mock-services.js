@@ -62,6 +62,17 @@ function ItemsService(){
         onError();
     };
 
+    service.updateItemById = function(id, item, onSuccess, onError){
+        for(var i = 0; i < items.length; i++) {
+            if(items[i].id == id) {
+                items[i] = item;
+                onSuccess();
+                return;
+            }
+        }
+        onError();
+    };
+
     service.findByCategory = function(category, onSuccess, onError) {
         var results = [];
         var item = new Object();
@@ -79,8 +90,6 @@ function ItemsService(){
     service.findAll = function(onSuccess, onError) {
         onSuccess(Object.create(items));
     };
-
-
 }
 
 services.service('ItemsService', ItemsService);
@@ -140,29 +149,25 @@ function LoginService(){
     var service = this;
 
     service.logIn = function(username, password, onSuccess, onError) {
-        if(service.isLoggedIn()) {
-            onSuccess();
-        }
-        else {
+        service.isLoggedIn(onSuccess, function() {
             var registrations = window.localStorage.getItem("registrations")
             var  registration = new Object();
             for(var i = 0; i < registrations; i++) {
                 registration = registations[i];
-                if(registration.username == username && restiration.password == password) {
+                if(registration.username == username && registration.password == password) {
                     window.localStorage.setItem("login", registration);
                     onSuccess();
                     return;
                 }
             }
-
             onError();
-        }
+        });
     };
 
     service.logOut = function(onSuccess, onError){
         window.localStorage.removeItem("login");
         onSuccess();
-    }
+    };
 
     service.isLoggedIn = function(onSuccess, onError){
         if(window.localStorage.getItem("login") != null){
@@ -171,14 +176,14 @@ function LoginService(){
         else{
             onError();
         }
-    }
+    };
 
     service.register = function(registration, onSuccess, onError){
         var registrations = window.localStorage.getItem("registrations");
         registrations.push(registration);
         window.localStorage.setItem("registrations", registrations);
         service.logIn(registration.username, registration.password, onSuccess, onError);
-    }
+    };
 }
 
 services.service('LoginService', LoginService);
@@ -195,28 +200,46 @@ function CartService(ItemsService){
         sessionStorage.setItem("cart", JSON.stringify(cart));
     };
 
+    service.addItem = function(item, count, onSuccess, onError) {
+        var data = {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            img: item.img,
+            count: count,
+            price: item.price,
+            categories: item.categories
+        };
+
+        var cart = service.getCart();
+        cart.push(data);
+        service.setCart(cart);
+
+        onSuccess();
+    };
+
     service.lockItems = function(id, count, onSuccess, onError) {
-        var item = new Object();
-        for(var i = 0; i < items.length; i++) {
-            item = items[i];
-            if(item.id == id && item.count >= count) {
-                item.count -= count;
-                items[i] = item;
+        ItemsService.findById(id, function(item){
+            item.count -= count;
+            ItemsService.updateItemById(id, item, function(){
+                service.addItem(item, count, onSuccess, onError);
+            }, onError);
+        }, onError);
+    };
 
-                var data = {
-                    id: item.id,
-                    name: item.name,
-                    description: item.description,
-                    img: item.img,
-                    count: count,
-                    price: item.price,
-                    categories: item.categories
-                };
-
-                var cart = service.getCart();
-                cart.push(data);
+    service.removeItem = function(id, count, onSuccess, onError) {
+        var cart = service.getCart();
+        var cartItem = new Object();
+        for(var j = 0; j < cart.length; j++) {
+            cartItem = cart[j];
+            if(cartItem.id == id && cartItem.count == count) {
+                if(cart.length == 1) {
+                    cart = [];
+                }
+                else {
+                    cart.splice(j,1);
+                }
                 service.setCart(cart);
-
                 onSuccess();
                 return;
             }
@@ -225,30 +248,16 @@ function CartService(ItemsService){
     };
 
     service.unlockItems = function(id, count, onSuccess, onError) {
-        var item = new Object();
-        for(var i = 0; i < items.length; i++) {
-            item = items[i];
-            if(item.id == id) {
-                item.count += count;
-                var cart = service.getCart();
-                var cartItem = new Object();
-                for(var j = 0; j < cart.length; j++) {
-                    cartItem = cart[j];
-                    if(cartItem.id == id && cartItem.count == count) {
-                        if(cart.length == 1) {
-                            cart = [];
-                        }
-                        else {
-                            cart.splice(j,1);
-                        }
-                        service.setCart(cart);
-                        onSuccess();
-                        return;
-                    }
-                }
-            }
-        }
-        onError();
+        ItemsService.findById(id, function(item){
+            item.count += count;
+            ItemsService.updateItemById(id, item, function(){
+                service.removeItem(id, count, onSuccess, onError);
+            }, onError);
+        }, onError);
+    };
+
+    service.buyItem = function(id, count, onSuccess, onError){
+        service.removeItem(id, count, onSuccess, onError);
     };
 }
 

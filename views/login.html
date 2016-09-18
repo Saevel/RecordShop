@@ -1,0 +1,32 @@
+<!-- TODO: Implement -->
+<div class="container">
+    <h2>Login</h2>
+
+    <br/>
+    <form ng-submit="logIn()">
+        <div class="row">
+            <div class="col-md-1">
+                <label for="username">Username</label>
+            </div>
+            <div class="col-md-2">
+                <input name="username" ng-model="username" type="text" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <label for="password">Password</label>
+            </div>
+            <div class="col-md-2">
+                <input name="password" type="text" ng-model="password" />
+            </div>
+        </div>
+        <div class="row">
+            <br/>
+            <div class="col-md-1">
+                <input type="submit" class="btn btn-warning" value="Submit" />
+            </div>
+        </div>
+
+    </form>
+
+</div>

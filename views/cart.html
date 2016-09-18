@@ -41,5 +41,10 @@
 
     <br/><br/>
 
-    <span class="label label-info">Total Price: {{totalPrice()}}</span>
+    <span class="label label-md label-info">Total Price: {{totalPrice()}}</span>
+
+    <br/><br/>
+
+    <!-- TODO: HREF -->
+    <button ng-if="items.length > 0" ng-click="buyItems()" class="btn btn-warning">Buy Now</button>
 </div>

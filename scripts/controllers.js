@@ -11,12 +11,12 @@ function nullOrEmpty(string) {
 
 //TODO: Actual validation.
 function properPhoneNumber(number) {
-    return false;
+    return (number != null && number != undefined);
 }
 
 //TODO: Actual validation
 function properEmail(text) {
-    return false;
+    return (text != null && text != undefined);
 }
 
 controllers.controller('ContactController', function($scope, InformationService){
@@ -45,6 +45,9 @@ controllers.controller('RegistrationController', function($scope, LoginService){
 
     //TODO: Actual behavior!
     $scope.onSubmit = function() {
+
+        $scope.errors = [];
+        $scope.errors["contact"] = [];
 
         if(nullOrEmpty($scope.username)) {
             $scope.errors["username"] = "Empty username";
@@ -76,7 +79,7 @@ controllers.controller('RegistrationController', function($scope, LoginService){
 
         if(nullOrEmpty($scope.contactData.phoneNumber) && nullOrEmpty($scope.contactData.email) &&
             nullOrEmpty($scope.contactData.address)) {
-            $scope.errors["contact"] = "No contact data provided";
+            $scope.errors["contact"].push("No contact data provided");
         }
         else if (!nullOrEmpty($scope.contactData.email) && !properEmail($scope.contactData.email)) {
             $scope.errors["contact"].push("Incorrect Email");
@@ -183,10 +186,57 @@ controllers.controller('CartController', function($scope, CartService, ItemsServ
     };
 
     $scope.removeFromCart = function(removedItem) {
-        CartService.unlockItems(removedItem.id, removedItem.count, function(){
+        CartService.unlock = Items(removedItem.id, removedItem.count, function(){
             $scope.items = CartService.getCart();
         }, function(){
             alert("Error removing item from the cart");
         });
-    }
+    };
+
+    $scope.buyItems = function(){
+        var cart = CartService.getCart();
+        for(var i = 0; i < cart.length; i++){
+            CartService.buyItem(cart[i].id, cart[i].count, function(){
+                $scope.items = CartService.getCart();
+                alert("Items from the Cart purchased successfully");
+            }, function(){
+                alert("Error purchasing items");
+            });
+        }
+    };
+});
+
+controllers.controller('LoginController', function($scope, $location, LoginService){
+
+    LoginService.isLoggedIn(function(){
+        $scope.loggedIn = true;
+    },function(){
+         $scope.loggedIn = false;
+    });
+
+    var controller = this;
+
+    $scope.openLoginPage = function(){
+        $location.path("/login");
+    };
+
+    $scope.logOut = function(){
+      LoginService.logOut(function(){
+          LoginService.isLoggedIn(function(){
+              $scope.loggedIn = true;
+          }, function(){
+              $scope.loggedIn = false;
+          });
+      }, function(){
+          alert("Logout failed");
+      });
+    };
+
+    $scope.logIn = function(){
+        LoginService.logIn($scope.username, $scope.password, function(){
+            $location.path("/main");
+        }, function(){
+            alert("Login failed");
+        });
+    };
 });

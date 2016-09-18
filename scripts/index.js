@@ -12,6 +12,10 @@ mainModule.config(function($routeProvider){
             templateUrl: 'views/main.html',
             controller: 'MainController'
         })
+        .when("/login", {
+            templateUrl: 'views/login.html',
+            controller: 'LoginController'
+        })
         .when("/main#carousel", {
             templateUrl: 'views/main.html'
         })
